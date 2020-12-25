@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/java/Stream/</loc>
+    <lastmod>2020-12-25T09:26:56.847Z</lastmod>
+    <data>
+        <display>
+        <title>Java8 Stream 使用简介</title>
+        <pubTime>2019-06-21T04:00:00.000Z</pubTime>
+        
+        <tag>Java8</tag>
+         
+        <tag>Stream</tag>
+         
+        <tag>集合</tag>
+         
+        <tag>Map</tag>
+         
+        <tag>List</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://blog.ryven.xin/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/forfun/index/</loc>
+    <lastmod>2020-12-25T09:26:56.847Z</lastmod>
+    <data>
+        <display>
+        <title>一路向北</title>
+        <pubTime>2018-07-04T04:00:00.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/java/singleton/</loc>
+    <lastmod>2020-12-25T09:26:56.847Z</lastmod>
+    <data>
+        <display>
+        <title>单例模式的线程安全问题</title>
+        <pubTime>2019-07-10T15:24:08.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Singleton</tag>
+         
+        <tag>单例模式</tag>
+         
+        <tag>线程安全</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://blog.ryven.xin/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/ml/LinearRegression/</loc>
+    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
+    <data>
+        <display>
+        <title>线性回归的原理及Python实现</title>
+        <pubTime>2018-07-05T05:12:35.000Z</pubTime>
+        
+        <tag>机器学习</tag>
+         
+        <tag>线性回归</tag>
+         
+        <tag>最小二乘法</tag>
+         
+         
+           
+             
+              <breadCrumb title="ml" url="http://blog.ryven.xin/categories/ml/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/debug/PageHelper-clearPage%E6%97%A0%E6%95%88/</loc>
+    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
+    <data>
+        <display>
+        <title>PageHelper的clearPage无效</title>
+        <pubTime>2019-07-11T04:00:00.000Z</pubTime>
+        
+        <tag>分页</tag>
+         
+        <tag>PageHelper</tag>
+         
+        <tag>源码</tag>
+         
+         
+           
+             
+              <breadCrumb title="debug" url="http://blog.ryven.xin/categories/debug/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/ml/Descent/</loc>
+    <lastmod>2020-12-25T09:26:56.843Z</lastmod>
+    <data>
+        <display>
+        <title>梯度下降法解决线性回归问题</title>
+        <pubTime>2018-07-26T04:34:39.000Z</pubTime>
+        
+        <tag>机器学习</tag>
+         
+        <tag>线性回归</tag>
+         
+        <tag>梯度下降法</tag>
+         
+         
+           
+             
+              <breadCrumb title="ml" url="http://blog.ryven.xin/categories/ml/"/>
+          
+        </display>
+    </data>
+    </url>
+
+</urlset>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://blog.ryven.xin/java/Stream/</loc>
+    
+    <lastmod>2020-12-25T09:26:56.847Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.ryven.xin/forfun/index/</loc>
+    
+    <lastmod>2020-12-25T09:26:56.847Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.ryven.xin/java/singleton/</loc>
+    
+    <lastmod>2020-12-25T09:26:56.847Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.ryven.xin/ml/LinearRegression/</loc>
+    
+    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.ryven.xin/debug/PageHelper-clearPage%E6%97%A0%E6%95%88/</loc>
+    
+    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.ryven.xin/ml/Descent/</loc>
+    
+    <lastmod>2020-12-25T09:26:56.843Z</lastmod>
+    
+  </url>
+  
+</urlset>

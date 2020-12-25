@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="DzsQM4WK6VeqXYWGK-3MwifmLRUykVUPW7zrYpmuFZs" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习,线性回归,最小二乘法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Gray's Ven" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="简介线性回归可以解决回归问题，同时也是一种思想简单，实现容易的算法。线性回归算法前提是可以预见所要解决的问题基本呈一个线性分布，比如房屋的面积和房屋的价格。这里使用到的Anaconda中的Jupyter工具编写代码，会使用到 numpy, sklearn两个Python库。">
+<meta name="keywords" content="机器学习,线性回归,最小二乘法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性回归的原理及Python实现">
+<meta property="og:url" content="http://blog.ryven.xin/ml/LinearRegression/index.html">
+<meta property="og:site_name" content="Gray&#39;s Ven">
+<meta property="og:description" content="简介线性回归可以解决回归问题，同时也是一种思想简单，实现容易的算法。线性回归算法前提是可以预见所要解决的问题基本呈一个线性分布，比如房屋的面积和房屋的价格。这里使用到的Anaconda中的Jupyter工具编写代码，会使用到 numpy, sklearn两个Python库。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.ryven.xin/ml/LinearRegression/sample.png">
+<meta property="og:image" content="http://blog.ryven.xin/ml/LinearRegression/s_data_init.png">
+<meta property="og:image" content="http://blog.ryven.xin/ml/LinearRegression/s_data_res.png">
+<meta property="og:updated_time" content="2020-12-25T09:26:56.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性回归的原理及Python实现">
+<meta name="twitter:description" content="简介线性回归可以解决回归问题，同时也是一种思想简单，实现容易的算法。线性回归算法前提是可以预见所要解决的问题基本呈一个线性分布，比如房屋的面积和房屋的价格。这里使用到的Anaconda中的Jupyter工具编写代码，会使用到 numpy, sklearn两个Python库。">
+<meta name="twitter:image" content="http://blog.ryven.xin/ml/LinearRegression/sample.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.ryven.xin/ml/LinearRegression/"/>
+
+
+
+
+<!-- 百度连接 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  <title>线性回归的原理及Python实现 | Gray's Ven</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4ad49dd90db118ab2da4e162fc2e6490";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gray's Ven</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.ryven.xin/ml/LinearRegression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gray's Ven">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性回归的原理及Python实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T13:12:35+08:00">
+                2018-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ml/" itemprop="url" rel="index">
+                    <span itemprop="name">ml</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/ml/LinearRegression/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="ml/LinearRegression/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>线性回归可以解决回归问题，同时也是一种思想简单，实现容易的算法。线性回归算法前提是可以预见所要解决的问题基本呈一个线性分布，比如房屋的面积和房屋的价格。这里使用到的Anaconda中的Jupyter工具编写代码，会使用到 numpy, sklearn两个Python库。<br><a id="more"></a></p>
+<h2 id="简单线性回归"><a href="#简单线性回归" class="headerlink" title="简单线性回归"></a>简单线性回归</h2><p>简单的线性回归就是解决 <strong>$y = ax + b$</strong> 给定x和y的值，求a和b的值。求解线性回归，如果所示<br><img src="/ml/LinearRegression/sample.png" alt="示例"></p>
+<p>图中蓝色的点就是实际采集的数据点，红色的线就是需要得到的线性回归方程 $y = ax + b$ 的直线，就是要找到一条直线，所有的 $x$ 在直线上的点对应 $\hat{y}$ 与该点实际的 $y$ 的差值 $\Delta{y}$ 最小，即所有绿色的线对应的残差平方和 $\sum<em>{i=1}^m\Delta{y}$ 最小。<br>这里不使用 $\sum</em>{i=1}^m\Delta{y}$ 的原因在于 $\Delta{y}$ 的值有正负，求和之后正负抵消就不能体现出回归方程的结果的正确性，至于不使用绝对值的方式，是由于绝对值不方便数学求导，所以最后使用 $\sum_{i=1}^m(\Delta{y})^2$。<br><br></p>
+<hr>
+<h3 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h3><p><strong>数学推导，可以跳过</strong><br>上面的说明最后得到的式子就是最小二乘法描述的公式，即求损失函数$J$的最小值：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^m(y_i - \hat{y_i})^2</script><script type="math/tex; mode=display">
+\sum_{i=1}^m(y_i - \hat{y_i})^2 = \sum_{i=1}^m(y_i - ax_i - b)^2 = J(a,b)</script><p>对它在 $a$，$b$ 两个方向上求偏导数，令偏导数等于0。由于 $b$ 求解较方便，对 $b$ 求偏导：</p>
+<script type="math/tex; mode=display">
+  \frac{\delta{J}}{\delta{b}} = 2\sum_{i=1}^m(y_i - ax_i - b)(-1) = 0</script><script type="math/tex; mode=display">
+  \sum_{i=1}^m{y_i} - a\sum_{i=1}^m{x_i} = \sum_{i=1}^m{b} = mb</script><p>$a,b$ 是常量 每项除以 m，得到 <strong>$b$的等式</strong>:</p>
+<script type="math/tex; mode=display">
+    b = \overline{y} - a\overline{x}</script><p>现在对a求偏导：</p>
+<script type="math/tex; mode=display">
+  \frac{\delta{J}}{\delta{a}} = 2\sum_{i=1}^m(y_i - ax_i - b)(-x_i) = 0</script><p>带入 $b = \overline{y} - a\overline{x}$ 移项化简得到</p>
+<script type="math/tex; mode=display">
+  a = \frac{\sum_{i=1}^m(x_iy_i - x_i\overline{y})}{\sum_{i=1}^m(x_i^2 - x_i\overline{x})}</script><p>由于Python处理矩阵十分有优势，所以这里做个向量化的转换。由于</p>
+<script type="math/tex; mode=display">
+  \sum_{i=1}^mx_i\overline{y}=\overline{y}\sum_{i=1}^mx_i=\overline{y}*m\overline{x}</script><script type="math/tex; mode=display">
+ = \overline{x}\sum_{i=1}^my_i = \sum_{i=1}^my_i\overline{x} = \sum_{i=1}^m\overline{x}\overline{y}</script><p>变换上面 <strong>$a$ 的等式</strong></p>
+<script type="math/tex; mode=display">
+a = \frac{\sum_{i=1}^m(x_iy_i - x_i\overline{y} - \overline{x}y_i + \overline{x}\overline{y})}{\sum_{i=1}^m(x_i^2 - x_i\overline{x} - x_i\overline{x} + \overline{x}^2)}</script><script type="math/tex; mode=display">
+= \frac{\sum_{i=1}^m(x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^m(x_i - \overline{x})^2}</script><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>下面进行代码上的操作，这里用到了 numpy 这个库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 模拟数据</span><br><span class="line">  x = np.array([1., 2., 3., 4., 5.])</span><br><span class="line">  y = np.array([3., 5.5, 4.7, 8., 9.])</span><br></pre></td></tr></table></figure></p>
+<p>$x,y$ 模拟数据在图上的显示：<br> <img src="/ml/LinearRegression/s_data_init.png" alt="初始化数据"><br> 现在根据公式</p>
+<script type="math/tex; mode=display">
+  a = \frac{\sum_{i=1}^m(x_i- \overline{x})(y_i - \overline{y})}{\sum_{i=1}^m(x_i - \overline{x})^2}</script><script type="math/tex; mode=display">
+  b = \overline{y} - a\overline{x}</script> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 首先求出平均值，直接使用numpy的函数</span><br><span class="line">  x_mean = np.mean(x)</span><br><span class="line">  y_mean = np.mean(y)</span><br><span class="line">  # 分别求和分子和分母，然后相除</span><br><span class="line">  num = 0.0</span><br><span class="line">  den = 0.0</span><br><span class="line">  for i in range(len(x)):</span><br><span class="line">      num += (x[i] - x_mean)*(y[i] - y_mean)</span><br><span class="line">      den += (x[i] - x_mean)**2</span><br><span class="line">  a = num / den</span><br><span class="line">  b = y_mean - a * x_mean</span><br><span class="line"># 这组数据求得 a = 1.45, b = 1.69</span><br></pre></td></tr></table></figure>
+<p> 原始点和回归后的直线作图<br> <img src="/ml/LinearRegression/s_data_res.png" alt="回归结果"><br> 补充向量的方法，$a$ 的表达式分子分母都是两个元素相乘然后求和，和矩阵的点乘定义相同，所以求 $a$ 的代码可以修改为<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = (x - x_mean).dot(y - y_mean) / (x - x_mean).dot(x - x_mean)</span><br></pre></td></tr></table></figure></p>
+<p> 同样可以算出 $a = 1.45$<br> 完整代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([1., 2., 3., 4., 5.])</span><br><span class="line">x_mean = np.mean(x)</span><br><span class="line">y_mean = np.mean(y)</span><br><span class="line"># num = 0.0</span><br><span class="line"># den = 0.0</span><br><span class="line"># for i in range(len(x)):</span><br><span class="line">#     num += (x[i] - x_mean)*(y[i] - y_mean)</span><br><span class="line">#     den += (x[i] - x_mean)**2</span><br><span class="line"># a = num / den</span><br><span class="line">a = (x - x_mean).dot(y - y_mean) / (x - x_mean).dot(x - x_mean)</span><br><span class="line">b = y_mean - a * x_mean</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><h3 id="最小二乘法-1"><a href="#最小二乘法-1" class="headerlink" title="最小二乘法"></a>最小二乘法</h3><p>多元线性回归需要解决的问题比简单线性回归复杂一些，从解决 $y=ax + b$ 的问题变成了 </p>
+<script type="math/tex; mode=display">
+y = \theta_0 + \theta_1x_1 + \theta_2x_2 + \theta_3x_3 + \dots + \theta_nx_n</script><p>要求 $n+1$ 个系数的值，将解看成一个向量，即求 $\theta_0,\theta_1,\dots\theta_n$的值，由于便于下面的计算，使用列向量</p>
+<script type="math/tex; mode=display">
+\theta = （\theta_0, \theta_1, \theta_2\dots \theta_n)^T</script><p>同样，我们需要求损失函数 $J$ 的最小值，$m$表示有多少组数据：</p>
+<script type="math/tex; mode=display">
+  J = \sum_{i=1}^m(y_i - \hat{y_i})^2</script><p>由于 $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \theta_3x_3 + \dots + \theta_mx_m$ 给每个元素添加一个可以添加一个 $x_0$，其中 $x_0 = 1$,可以获得$X_b$的矩阵：</p>
+<script type="math/tex; mode=display">
+  设X_b = \begin{pmatrix}
+    1 & x^{(1)}_1 & x^{(1)}_2 & \cdots & x^{(1)}_n \\
+    1 & x^{(2)}_1 & x^{(2)}_2 & \cdots & x^{(2)}_n \\
+    \cdots \\
+    1 & x^{(m)}_1 & x^{(m)}_2 & \cdots & x^{(m)}_n \\
+  \end{pmatrix}</script><script type="math/tex; mode=display">
+  \theta = \begin{pmatrix}
+    \theta_0 \\
+    \theta_1 \\
+    \cdots\\
+    \theta_n \\
+  \end{pmatrix}</script><p>可以变成矩阵点乘的形式</p>
+<script type="math/tex; mode=display">
+  \hat{y} = X_b\cdot{\theta}</script><p>则 $\hat{y}$ 就是 $m$ 个样本的计算值，损失函数也可以修改成点乘的形式，由于要使用矩阵的点乘，进行一下转置：</p>
+<script type="math/tex; mode=display">
+  J = (y - X_b\cdot{\theta})^T\cdot(y - X_b\cdot{\theta})</script><p>到这里，数值的运算转换成了矩阵的运算，这个矩阵的最小值通过最小二乘法的计算（矩阵求导之类的知识我也就不了解了，有兴趣的可以自己去看看），最终计算出的使得损失函数的结果最小的的$\theta$如下：</p>
+<script type="math/tex; mode=display">
+  \theta = (X_b^T\cdot{X_b})^{-1}\cdot{X_b^T}\cdot{y}</script><p><strong>直接通过公式求出最小解的方法时间复杂度为 $O(n^3)$, 优化之后 $O(n^{2.4})$，同时，现实生活中能够直接计算出公式的模型是比较少的，通常多元线性回归的计算会通过其他的方式来解决，比如梯度下降法</strong></p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><p>与简单线性回归的流程相同，准备数据，这里使用sklearn里的Boston房价的数据集<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import datasets</span><br><span class="line">boston = datasets.load_boston()</span><br><span class="line">X = boston.data</span><br><span class="line">y = boston.target</span><br></pre></td></tr></table></figure></p>
+<p>其中 X 是一个 $506*13$ 的一个矩阵，表示包含506条数据，每条数据有13个特征值，包括 城镇人均犯罪率、一氧化氮浓度、是否靠近查尔斯河流、房屋数量等，y则是一个列向量，包含506个数据，表示506个房屋样本对应的房屋价格。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 首先将X转化成X_b: 添加一列到第一列，所有元素都是 1</span><br><span class="line">X_b = np.hstack((np.ones((len(X), 1)), X))</span><br><span class="line"># 根据公式</span><br><span class="line">theta = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y)</span><br></pre></td></tr></table></figure></p>
+<p>对于结果我做了处理，将结果 3.22611069e+01 转换成 32.3，方便直接看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theta = （32.3, -0.11, 0.04, -0.04, 0.45, -12.4,  3.75, -0.02, -1.21, 0.25, -0.01.3, -0.84, 0.0079, -0.35）</span><br></pre></td></tr></table></figure></p>
+<h3 id="回归系数解读"><a href="#回归系数解读" class="headerlink" title="回归系数解读"></a>回归系数解读</h3><p>使用线性回归算法计算的结果都是有可以解释性的，这是一个线性回归比较重要的特点。比如上面Boston房价的问题，从sklearn的数据集中了解到，样本数据 X 的每一个特征（列）代表的内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">names = (&apos;CRIM&apos;, &apos;ZN&apos;, &apos;INDUS&apos;, &apos;CHAS&apos;, &apos;NOX&apos;, &apos;RM&apos;, &apos;AGE&apos;, &apos;DIS&apos;, &apos;RAD&apos;, &apos;TAX&apos;, &apos;PTRATIO&apos;, &apos;B&apos;, &apos;LSTAT&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>$\theta$ (theta)中第一维是常数项，不讨论，所以对应的系数值为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theta = (-0.11, 0.04, -0.04, 0.45, -12.4,  3.75, -0.02, -1.21, 0.25, -0.01.3, -0.84, 0.0079, -0.35）</span><br></pre></td></tr></table></figure></p>
+<p>抽取几个维度来查看，比如</p>
+<ul>
+<li>‘CRIM’ （per capita crime rate by town, 城镇人均犯罪率）对应的系数为 -0.11，表示，随着犯罪率的升高，房价是呈下降的趋势；</li>
+<li>‘CHAS’ (Charles River dummy variable (= 1 if tract bounds river; 0 otherwise))，是否傍河 Charles River，对应的系数为0.45，表示临河的房子贵</li>
+<li>‘NOX’ ，一氧化氮浓度，是系数最小的项，表示浓度越高，房屋价格下降，同时也是下降的最厉害的</li>
+<li>‘RM’，平均房间数，是系数最大的项，房间数量越多，房价越高，也很符合实际意义</li>
+</ul>
+<p>版权声明：本文为博主原创文章。如有任何问题，请指教 lei.gang@live.cn</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/线性回归/" rel="tag"># 线性回归</a>
+          
+            <a href="/tags/最小二乘法/" rel="tag"># 最小二乘法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/forfun/index/" rel="next" title="一路向北">
+                <i class="fa fa-chevron-left"></i> 一路向北
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ml/Descent/" rel="prev" title="梯度下降法解决线性回归问题">
+                梯度下降法解决线性回归问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Gray" />
+          <p class="site-author-name" itemprop="name">Gray</p>
+           
+              <p class="site-description motion-element" itemprop="description">notebook</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">简单线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最小二乘法"><span class="nav-number">1.1.1.</span> <span class="nav-text">最小二乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多元线性回归"><span class="nav-number">1.2.</span> <span class="nav-text">多元线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最小二乘法-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">最小二乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回归系数解读"><span class="nav-number">1.2.3.</span> <span class="nav-text">回归系数解读</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="author" itemprop="copyrightHolder">Ryven</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gray</span>
+</div>
+
+
+<div class="powered-by">
+  <a class="theme-link" href="http://blog.ryven.xin">如果那样</a>
+</div>
+
+<div class="theme-info">
+  我们还~
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytHV7qGp';
+      var conf = 'fb72cedf7c9abd59324e003477a25a32';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
