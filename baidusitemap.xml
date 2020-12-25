@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://blog.ryven.xin/mysql/MYSQL-MASTER-SLAVE/</loc>
+    <lastmod>2020-12-25T10:26:29.024Z</lastmod>
+    <data>
+        <display>
+        <title>MYSQL主从复制 Docker快速实现</title>
+        <pubTime>2020-12-25T10:00:00.000Z</pubTime>
+        
+        <tag>MYSQL</tag>
+         
+        <tag>主从复制</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://blog.ryven.xin/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.ryven.xin/java/Stream/</loc>
     <lastmod>2020-12-25T09:26:56.847Z</lastmod>
     <data>
@@ -73,30 +95,6 @@
 
     
   <url>
-    <loc>http://blog.ryven.xin/debug/PageHelper-clearPage%E6%97%A0%E6%95%88/</loc>
-    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
-    <data>
-        <display>
-        <title>PageHelper的clearPage无效</title>
-        <pubTime>2019-07-11T04:00:00.000Z</pubTime>
-        
-        <tag>分页</tag>
-         
-        <tag>PageHelper</tag>
-         
-        <tag>源码</tag>
-         
-         
-           
-             
-              <breadCrumb title="debug" url="http://blog.ryven.xin/categories/debug/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.ryven.xin/ml/LinearRegression/</loc>
     <lastmod>2020-12-25T09:26:56.846Z</lastmod>
     <data>
@@ -114,6 +112,30 @@
            
              
               <breadCrumb title="ml" url="http://blog.ryven.xin/categories/ml/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/debug/PageHelper-clearPage%E6%97%A0%E6%95%88/</loc>
+    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
+    <data>
+        <display>
+        <title>PageHelper的clearPage无效</title>
+        <pubTime>2019-07-11T04:00:00.000Z</pubTime>
+        
+        <tag>分页</tag>
+         
+        <tag>PageHelper</tag>
+         
+        <tag>源码</tag>
+         
+         
+           
+             
+              <breadCrumb title="debug" url="http://blog.ryven.xin/categories/debug/"/>
           
         </display>
     </data>

@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Singleton,单例模式,线程安全," />
+  <meta name="keywords" content="MYSQL,主从复制," />
 
 
 
@@ -96,20 +96,18 @@
 
 
 
-<meta name="description" content="简介在Java程序中，单例模式是很常见的模式。通常需要延迟初始化来降低初始化程序时对象创建的开销，通常使用的方法是双重锁检查，但是不加volatile限制的双重锁检查是一个错误的用法，正确的做法是通过volatile或者基于类初始化的方法来解决线程安全问题。 一、基于 volatile 的解决方案123456789101112131415public class SafeVolatileInsta">
-<meta name="keywords" content="Java,Singleton,单例模式,线程安全">
+<meta name="description" content="前言mysql 主从原理是通过binlog文件来传递主库的修改的 操作 下载mysql镜像 1docker pull mysql:5.7.18  准备一份my.cnf，这个版本的镜像里的mysql配置文件在 /etc/mysql/mysql.conf.d/mysqld.cnf，可以从容器中使用docker cp复制出来修改， 复制出两个文件 mysqld.master.cnf，mysqld.sla">
+<meta name="keywords" content="MYSQL,主从复制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式的线程安全问题">
-<meta property="og:url" content="http://blog.ryven.xin/java/singleton/index.html">
+<meta property="og:title" content="MYSQL主从复制 Docker快速实现">
+<meta property="og:url" content="http://blog.ryven.xin/mysql/MYSQL-MASTER-SLAVE/index.html">
 <meta property="og:site_name" content="Gray&#39;s Ven">
-<meta property="og:description" content="简介在Java程序中，单例模式是很常见的模式。通常需要延迟初始化来降低初始化程序时对象创建的开销，通常使用的方法是双重锁检查，但是不加volatile限制的双重锁检查是一个错误的用法，正确的做法是通过volatile或者基于类初始化的方法来解决线程安全问题。 一、基于 volatile 的解决方案123456789101112131415public class SafeVolatileInsta">
+<meta property="og:description" content="前言mysql 主从原理是通过binlog文件来传递主库的修改的 操作 下载mysql镜像 1docker pull mysql:5.7.18  准备一份my.cnf，这个版本的镜像里的mysql配置文件在 /etc/mysql/mysql.conf.d/mysqld.cnf，可以从容器中使用docker cp复制出来修改， 复制出两个文件 mysqld.master.cnf，mysqld.sla">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://blog.ryven.xin/java/singleton/new.jpg">
-<meta property="og:updated_time" content="2020-12-25T09:26:56.847Z">
+<meta property="og:updated_time" content="2020-12-25T10:26:29.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式的线程安全问题">
-<meta name="twitter:description" content="简介在Java程序中，单例模式是很常见的模式。通常需要延迟初始化来降低初始化程序时对象创建的开销，通常使用的方法是双重锁检查，但是不加volatile限制的双重锁检查是一个错误的用法，正确的做法是通过volatile或者基于类初始化的方法来解决线程安全问题。 一、基于 volatile 的解决方案123456789101112131415public class SafeVolatileInsta">
-<meta name="twitter:image" content="http://blog.ryven.xin/java/singleton/new.jpg">
+<meta name="twitter:title" content="MYSQL主从复制 Docker快速实现">
+<meta name="twitter:description" content="前言mysql 主从原理是通过binlog文件来传递主库的修改的 操作 下载mysql镜像 1docker pull mysql:5.7.18  准备一份my.cnf，这个版本的镜像里的mysql配置文件在 /etc/mysql/mysql.conf.d/mysqld.cnf，可以从容器中使用docker cp复制出来修改， 复制出两个文件 mysqld.master.cnf，mysqld.sla">
 
 
 
@@ -138,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://blog.ryven.xin/java/singleton/"/>
+  <link rel="canonical" href="http://blog.ryven.xin/mysql/MYSQL-MASTER-SLAVE/"/>
 
 
 
@@ -158,7 +156,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-  <title>单例模式的线程安全问题 | Gray's Ven</title>
+  <title>MYSQL主从复制 Docker快速实现 | Gray's Ven</title>
   
 
 
@@ -291,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.ryven.xin/java/singleton/">
+    <link itemprop="mainEntityOfPage" href="http://blog.ryven.xin/mysql/MYSQL-MASTER-SLAVE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gray">
@@ -308,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">单例模式的线程安全问题</h1>
+          <h1 class="post-title" itemprop="name headline">MYSQL主从复制 Docker快速实现</h1>
         
 
         <div class="post-meta">
@@ -320,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T23:24:08+08:00">
-                2019-07-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-25T18:00:00+08:00">
+                2020-12-25
               </time>
             
 
@@ -343,8 +341,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -362,8 +360,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/java/singleton/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="java/singleton/" itemprop="commentsCount"></span>
+                <a href="/mysql/MYSQL-MASTER-SLAVE/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="mysql/MYSQL-MASTER-SLAVE/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -391,29 +389,27 @@
       
 
       
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>在Java程序中，单例模式是很常见的模式。通常需要延迟初始化来降低初始化程序时对象创建的开销，通常使用的方法是双重锁检查，但是不加volatile限制的双重锁检查是一个错误的用法，正确的做法是通过volatile或者基于类初始化的方法来解决线程安全问题。</p>
-<h3 id="一、基于-volatile-的解决方案"><a href="#一、基于-volatile-的解决方案" class="headerlink" title="一、基于 volatile 的解决方案"></a>一、基于 volatile 的解决方案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class SafeVolatileInstance &#123;</span><br><span class="line">    </span><br><span class="line">    private volatile static SafeVolatileInstance instance;</span><br><span class="line">    </span><br><span class="line">    public static SafeVolatileInstance getInstance() &#123;</span><br><span class="line">        if (instance == null) &#123;</span><br><span class="line">            synchronized (SafeVolatileInstance.class) &#123;</span><br><span class="line">                if (instance == null) &#123;</span><br><span class="line">                    instance = new SafeVolatileInstance();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>instance = SafeVolatileInstance();</code> 这个操作按照如下三个步骤进行</li>
-<li>由于所有线程在执行程序的时候必须要遵守<strong> intra-thread semantics </strong>, <strong> intra-thread semantics </strong>保证重排序不会改变单线程中的执行结果，所以步骤2和3可能会发生重排序，当步骤3先执行后，如果此时有另一个线程B访问getInstance方法，第一个if中instance == null 就会返回false，但此时instance对象并未真正初始化成功，线程B将访问到一个未初始化的对象，这就是双重锁检查的问题所在</li>
-<li>当instance使用volatile修饰之后，<strong> 2和3之间的重排序在多线程的环境中会被禁止 </strong>，所以不会出现上述的访问到未初始化的对象的问题。<br><img src="/java/singleton/new.jpg" alt="示例"><blockquote>
-<p>需要基于JDK5以上的版本，从JDK5开始使用的新的JSR-133内存模型规范增强了volatile的语义。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>mysql 主从原理是通过binlog文件来传递主库的修改的</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ul>
+<li><p>下载mysql镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7.18</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>准备一份my.cnf，这个版本的镜像里的mysql配置文件在 /etc/mysql/mysql.conf.d/mysqld.cnf，可以从容器中使用docker cp复制出来修改， 复制出两个文件 mysqld.master.cnf，mysqld.slave.cnf</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 文件 mysqld.master.cnf 添加内容</span><br><span class="line">.... 省略内容</span><br><span class="line">[mysqld]</span><br><span class="line">log-bin		= mysql-bin   # master一定要开启binlog</span><br><span class="line">server-id = 1           # 实例唯一的id，跟从库不一样就行</span><br><span class="line">.... 省略内容</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 文件 mysqld.slave.cnf 添加内容</span><br><span class="line">.... 省略内容</span><br><span class="line">[mysqld]</span><br><span class="line">log-bin		= mysql-bin   # 开启binlog</span><br><span class="line">server-id = 2           # 实例唯一的id，跟主库不一样就行</span><br><span class="line">.... 省略内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动master</span><br><span class="line">docker run -d -p 3306:3306 -v /Users/所在文件夹/mysqld.master.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -e MYSQL_ROOT_PASSWORD=123456 --name mysql-master  mysql:5.7.18</span><br><span class="line"><span class="meta">#</span> 启动从库    从库在宿舍既可以换个端口，也可以是用 -p 3306 让宿主机随机一个端口</span><br><span class="line">docker run -d -p 3307:3306 -v /Users/所在文件夹/mysqld.slave.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -e MYSQL_ROOT_PASSWORD=123456 --name mysql-slave  mysql:5.7.18</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入mysql主从配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 进入容器命令</span><br><span class="line">docker exec -it mysql-master bash</span><br><span class="line">docker exec -it mysql-slave bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 进入mysql</span><br><span class="line">mysql -uroot -p123456</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-- master登录进入容器内mysql，添加用户用于主从复制</span><br><span class="line">GRANT REPLICATION SLAVE ON *.* TO &apos;follow&apos;@&apos;%&apos; identified by &apos;follow&apos;;</span><br><span class="line">-- 刷新权限</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">-- 查看binlog的文件名和位置，用于从库配置连接时指定文件和位置时使用</span><br><span class="line">show master status;</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| mysql-bin.000003 |      439 |              |                  |                   |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>master的ip地址可以在master机器上使用<code>ip addr</code>，也可以使用<code>docker inspect 容器id</code> 查看</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 从库 进入容器内，连接主库</span><br><span class="line">change master to </span><br><span class="line">    master_host = &apos;172.17.0.2&apos;, </span><br><span class="line">    master_user = &apos;follow&apos;, </span><br><span class="line">    master_log_file = &apos;mysql-bin.000003&apos;,</span><br><span class="line">    master_log_pos = 439,</span><br><span class="line">    master_port = 3306,</span><br><span class="line">    master_password = &apos;follow&apos;;</span><br><span class="line">-- 启动</span><br><span class="line">start slave;</span><br><span class="line">-- 查看状态</span><br><span class="line">show slave status;</span><br><span class="line">-- 重点查看 Slave_IO_Running与Slave_SQL_Running 是否为YES</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="二、基于类初始化的解决方案"><a href="#二、基于类初始化的解决方案" class="headerlink" title="二、基于类初始化的解决方案"></a>二、基于类初始化的解决方案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class SafeHolderInstance &#123;</span><br><span class="line"></span><br><span class="line">    private static class InstanceHolder &#123;</span><br><span class="line">        static SafeHolderInstance instance = new SafeHolderInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static SafeHolderInstance getInstance() &#123;</span><br><span class="line">        return InstanceHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong> 这个方案的实质是：允许上述的2和3重排序，但不允许非构造线程“看到”这个重排序 </strong></p>
-<p>初始化一个类，包括执行这个类的静态初始化和初始化静态字段。根据Java语言规范，类或接口T在首次发生如下任意一种情况时，会被立即初始化：</p>
-<ul>
-<li>T 是一个类，而且一个T的实例被创建</li>
-<li>T 是一个类，且T中声明的静态方法被调用</li>
-<li>T 中声明的一个静态字段被赋值</li>
-<li>T 中声明的一个静态字段被使用，而且这个字段不是一个常量字段</li>
-<li>T 是一个顶级类（Top level class），而且一个断言语句嵌套在T内被执行</li>
-</ul>
-<p><strong> 在如上代码中，首次执行getInstance方法时 InstanceHolder会被初始化 </strong></p>
-<p>多个线程同时调用getInstance方法时，会导致多个线程同时尝试初始化 InstanceHolder 类，Java语言规范规定，对于每一个类或者接口C，都有一个唯一的初始化锁LC与之对应。JVM在初始化期间会获取这个初始化锁，并且每个线程至少获取一次锁来确保这个类已经被初始化过了。初始化锁的实现可以确保类初始化只会由一个线程完成，当初始化完成之后，其他线程看到的是一个初始化好的instance实例，保证不会出现访问到不正常的对象的情况。具体的类初始化的锁同步问题可以参考《Java 并发编程的艺术》。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对比两种方法会发现基于类初始化的方案更加简洁。但是基于volatile的双重检查锁定的方案有一个额外的优势，除了可以对静态字段实现延迟初始化，也可以对实例字段实现延迟初始化。<br><strong><em> 所以，如果需要对实例字段使用线程安全的延迟初始化，使用基于volatile的延迟初始化方案；如果需要对静态字段使用线程安全的延迟初始化，使用基于类初始化的方案。 </em></strong></p>
 
       
     </div>
@@ -431,13 +427,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/MYSQL/" rel="tag"># MYSQL</a>
           
-            <a href="/tags/Singleton/" rel="tag"># Singleton</a>
-          
-            <a href="/tags/单例模式/" rel="tag"># 单例模式</a>
-          
-            <a href="/tags/线程安全/" rel="tag"># 线程安全</a>
+            <a href="/tags/主从复制/" rel="tag"># 主从复制</a>
           
         </div>
       
@@ -450,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/java/Stream/" rel="next" title="Java8 Stream 使用简介">
-                <i class="fa fa-chevron-left"></i> Java8 Stream 使用简介
+              <a href="/debug/PageHelper-clearPage无效/" rel="next" title="PageHelper的clearPage无效">
+                <i class="fa fa-chevron-left"></i> PageHelper的clearPage无效
               </a>
             
           </div>
@@ -459,10 +451,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/debug/PageHelper-clearPage无效/" rel="prev" title="PageHelper的clearPage无效">
-                PageHelper的clearPage无效 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、基于-volatile-的解决方案"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、基于 volatile 的解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、基于类初始化的解决方案"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、基于类初始化的解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作"><span class="nav-number">2.</span> <span class="nav-text">操作</span></a></li></ol></div>
             
 
           </div>
