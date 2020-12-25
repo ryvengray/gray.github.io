@@ -73,30 +73,6 @@
 
     
   <url>
-    <loc>http://blog.ryven.xin/ml/LinearRegression/</loc>
-    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
-    <data>
-        <display>
-        <title>线性回归的原理及Python实现</title>
-        <pubTime>2018-07-05T05:12:35.000Z</pubTime>
-        
-        <tag>机器学习</tag>
-         
-        <tag>线性回归</tag>
-         
-        <tag>最小二乘法</tag>
-         
-         
-           
-             
-              <breadCrumb title="ml" url="http://blog.ryven.xin/categories/ml/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.ryven.xin/debug/PageHelper-clearPage%E6%97%A0%E6%95%88/</loc>
     <lastmod>2020-12-25T09:26:56.846Z</lastmod>
     <data>
@@ -114,6 +90,30 @@
            
              
               <breadCrumb title="debug" url="http://blog.ryven.xin/categories/debug/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.ryven.xin/ml/LinearRegression/</loc>
+    <lastmod>2020-12-25T09:26:56.846Z</lastmod>
+    <data>
+        <display>
+        <title>线性回归的原理及Python实现</title>
+        <pubTime>2018-07-05T05:12:35.000Z</pubTime>
+        
+        <tag>机器学习</tag>
+         
+        <tag>线性回归</tag>
+         
+        <tag>最小二乘法</tag>
+         
+         
+           
+             
+              <breadCrumb title="ml" url="http://blog.ryven.xin/categories/ml/"/>
           
         </display>
     </data>
